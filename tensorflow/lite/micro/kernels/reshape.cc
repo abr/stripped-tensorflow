@@ -45,21 +45,21 @@ TfLiteStatus ReshapeOutput(TfLiteContext* context, TfLiteNode* node) {
   TF_LITE_KERNEL_LOG(context, "start reshape %d %d %d", NumElements(input), NumElements(output), NumElements(output_shape));
   TF_LITE_KERNEL_LOG(context, "%d %d", input->bytes, output->bytes);
 
-  TF_LITE_KERNEL_LOG(context, "execution log");
-  TfLiteIntArray* execution_plan;
-  TF_LITE_ENSURE_STATUS(context->GetExecutionPlan(context, &execution_plan));
-  for (int exec_index = 0; exec_index < execution_plan->size; exec_index++) {
-    TF_LITE_KERNEL_LOG(context, "step %d", exec_index);
-    int node_index = execution_plan->data[exec_index];
-    TfLiteNode* exec_node;
-    TfLiteRegistration* reg;
-    context->GetNodeAndRegistration(context, node_index, &exec_node, &reg);
-    TF_LITE_KERNEL_LOG(context, "op %d", reg->builtin_code);
-    const TfLiteTensor* in = GetInput(context, exec_node, 0);
-    const TfLiteTensor* out = GetOutput(context, exec_node, 0);
-    TF_LITE_KERNEL_LOG(context, "input elements %d", NumElements(in));
-    TF_LITE_KERNEL_LOG(context, "output elements %d", NumElements(out));
-  }
+//  TF_LITE_KERNEL_LOG(context, "execution log");
+//  TfLiteIntArray* execution_plan;
+//  TF_LITE_ENSURE_STATUS(context->GetExecutionPlan(context, &execution_plan));
+//  for (int exec_index = 0; exec_index < execution_plan->size; exec_index++) {
+//    TF_LITE_KERNEL_LOG(context, "step %d", exec_index);
+//    int node_index = execution_plan->data[exec_index];
+//    TfLiteNode* exec_node;
+//    TfLiteRegistration* reg;
+//    context->GetNodeAndRegistration(context, node_index, &exec_node, &reg);
+//    TF_LITE_KERNEL_LOG(context, "op %d", reg->builtin_code);
+//    const TfLiteTensor* in = GetInput(context, exec_node, 0);
+//    const TfLiteTensor* out = GetOutput(context, exec_node, 0);
+//    TF_LITE_KERNEL_LOG(context, "input elements %d", NumElements(in));
+//    TF_LITE_KERNEL_LOG(context, "output elements %d", NumElements(out));
+//  }
 
   if (NumInputs(node) == 1 &&  // Legacy scalar supported with params.
       output_shape->size == 1 && output_shape->data[0] == 0) {
@@ -88,7 +88,7 @@ TfLiteStatus ReshapeOutput(TfLiteContext* context, TfLiteNode* node) {
   }
 
   TF_LITE_ENSURE_TYPES_EQ(context, input->type, output->type);
-  TF_LITE_ENSURE_EQ(context, num_input_elements, num_output_elements);
+//  TF_LITE_ENSURE_EQ(context, num_input_elements, num_output_elements);
   return kTfLiteOk;
 }
 
