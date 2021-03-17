@@ -52,7 +52,7 @@ TfLiteStatus ReshapeOutput(TfLiteContext* context, TfLiteNode* node) {
     int node_index = execution_plan->data[exec_index];
     TfLiteNode* exec_node;
     TfLiteRegistration* reg;
-    context->GetNodeAndRegistration(context, node_index, &node, &reg);
+    context->GetNodeAndRegistration(context, node_index, &exec_node, &reg);
     TF_LITE_KERNEL_LOG(context, "op %d", reg->builtin_code);
     const TfLiteTensor* in = GetInput(context, exec_node, 0);
     const TfLiteTensor* out = GetOutput(context, exec_node, 0);
