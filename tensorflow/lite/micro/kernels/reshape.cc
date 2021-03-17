@@ -43,7 +43,7 @@ TfLiteStatus ReshapeOutput(TfLiteContext* context, TfLiteNode* node) {
   TfLiteIntArray* output_shape = output->dims;
 
   TF_LITE_KERNEL_LOG(context, "start reshape %d %d %d", NumElements(input), NumElements(output), NumElements(output_shape));
-  TF_LITE_KERNEL_LOG(context, "%s %d %s %d", input->name, input->bytes, output->name, output->bytes);
+  TF_LITE_KERNEL_LOG(context, "%d %d", input->bytes, output->bytes);
 
   if (NumInputs(node) == 1 &&  // Legacy scalar supported with params.
       output_shape->size == 1 && output_shape->data[0] == 0) {
