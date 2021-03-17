@@ -49,6 +49,7 @@ TfLiteStatus ReshapeOutput(TfLiteContext* context, TfLiteNode* node) {
   TfLiteIntArray* execution_plan;
   TF_LITE_ENSURE_STATUS(context->GetExecutionPlan(context, &execution_plan));
   for (int exec_index = 0; exec_index < execution_plan->size; exec_index++) {
+    TF_LITE_KERNEL_LOG(context, "step %d", exec_index);
     int node_index = execution_plan->data[exec_index];
     TfLiteNode* exec_node;
     TfLiteRegistration* reg;
