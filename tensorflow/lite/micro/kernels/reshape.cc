@@ -52,10 +52,10 @@ TfLiteStatus ReshapeOutput(TfLiteContext* context, TfLiteNode* node) {
 
   int num_output_elements = 1;
   int stretch_dim = -1;
-  TF_LITE_KERNEL_LOG(context, "start reshape %d %d", NumElements(input), NumElements(output), NumElements(output_shape));
+  TF_LITE_KERNEL_LOG(context, "start reshape %d %d %d", NumElements(input), NumElements(output), NumElements(output_shape));
   for (int i = 0; i < output_shape->size; ++i) {
     int value = output_shape->data[i];
-    TF_LITE_KERNEL_LOG(context, "reshape %d %d", num_output_elements, value);
+    TF_LITE_KERNEL_LOG(context, "reshape %d %d %d", num_output_elements, value, output->dims->data[i]);
     if (value == -1) {
       TF_LITE_ENSURE_EQ(context, stretch_dim, -1);
       stretch_dim = i;
