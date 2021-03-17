@@ -54,6 +54,7 @@ TfLiteStatus ReshapeOutput(TfLiteContext* context, TfLiteNode* node) {
   int stretch_dim = -1;
   for (int i = 0; i < output_shape->size; ++i) {
     int value = output_shape->data[i];
+    TF_LITE_KERNEL_LOG(context, "reshape %d %d", num_output_elements, value);
     if (value == -1) {
       TF_LITE_ENSURE_EQ(context, stretch_dim, -1);
       stretch_dim = i;
