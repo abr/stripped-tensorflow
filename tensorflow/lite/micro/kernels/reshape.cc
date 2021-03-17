@@ -42,6 +42,9 @@ TfLiteStatus ReshapeOutput(TfLiteContext* context, TfLiteNode* node) {
   int num_input_elements = NumElements(input);
   TfLiteIntArray* output_shape = output->dims;
 
+  TF_LITE_KERNEL_LOG(context, "start reshape %d %d %d", NumElements(input), NumElements(output), NumElements(output_shape));
+  TF_LITE_KERNEL_LOG(context, "%d %d", input->bytes, output->bytes);
+
   if (NumInputs(node) == 1 &&  // Legacy scalar supported with params.
       output_shape->size == 1 && output_shape->data[0] == 0) {
     // Legacy tflite models use a shape parameter of [0] to indicate scalars,
@@ -52,7 +55,7 @@ TfLiteStatus ReshapeOutput(TfLiteContext* context, TfLiteNode* node) {
 
   int num_output_elements = 1;
   int stretch_dim = -1;
-  TF_LITE_KERNEL_LOG(context, "start reshape %d %d %d", NumElements(input), NumElements(output), NumElements(output_shape));
+
   for (int i = 0; i < output_shape->size; ++i) {
     int value = output_shape->data[i];
     TF_LITE_KERNEL_LOG(context, "reshape %d %d %d", num_output_elements, value, output->dims->data[i]);
